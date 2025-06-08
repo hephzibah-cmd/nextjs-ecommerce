@@ -2,13 +2,14 @@ import Image from "next/image";
 import { prisma } from "@/lib/db/prisma";
 import ProductCard from "@/components/ProductCard";
 import Link from "next/link"
+import PaginationBar from "@/components/PaginationBar";
 
 export default async function Home() {
   const products = await prisma.product.findMany({
     orderBy: { id: "desc" },
   });
   return (
-    <div>
+    <div className="flex flex-col items-center">
       {/* <ProductCard product={products[0]}/> */}
 
       <div className="hero rounded-xl bg-base-200">
@@ -36,6 +37,7 @@ export default async function Home() {
           <ProductCard product={product} key={product.id} />
         ))}
       </div>
+      <PaginationBar />
     </div>
   );
 }
